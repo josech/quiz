@@ -11,3 +11,7 @@ exports.answer = function(req, res){
 		res.render('quizes/answer', {respuesta: 'Incorrecto'});
 	}
 };
+
+exports.author = function(req, res){
+	res.render('author/author', {author: 'José Christian Martínez Pineda', photo:'http://www.orce.uni.edu.pe/fotosuni/006020034526J.jpg'});	
+};
