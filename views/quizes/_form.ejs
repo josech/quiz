@@ -1,3 +1,12 @@
+<label for="categoria" class="rem">Categoria:</label>
+<select id="categoria" name="quiz[categoria]">
+  <%  	
+  	var categorias = [{value:'otro', text:'Otro'},{value:'humanidades', text:'Humanidades'},{value:'ocio', text:'Ocio'},{value:'ciencia', text:'Ciencia'},{value:'tecnologia', text:'Tecnologia'}];
+  	for(i in categorias){ 
+  %>
+  	<option value="<%= categorias[i].value %>" <% if(quiz.categoria === categorias[i].value) {%> selected <% } %>  ><%= categorias[i].text %></option>
+  <% } %>	  
+</select></p>
 <label for="preg" class="rem">Pregunta:</label>
 <input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>" /> </p>
 <label for="resp" class="rem">Respuesta:</label>

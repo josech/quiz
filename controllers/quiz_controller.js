@@ -39,7 +39,7 @@ exports.answer = function(req, res){
 };
 
 exports.author = function(req, res){
-	res.render('author/author', {author: 'José Christian Martínez Pineda', photo:'http://www.orce.uni.edu.pe/fotosuni/006020034526J.jpg'});	
+	res.render('author/author', {author: 'José Christian Martínez Pineda', photo:'http://www.orce.uni.edu.pe/fotosuni/006020034526J.jpg', errors: []});	
 };
 
 // GET /quizes
@@ -61,7 +61,7 @@ exports.index = function(req, res){
 // GET /quizes/new
 exports.new = function(req, res){
 	var quiz = models.Quiz.build(
-			{pregunta: "Pregunta", respuesta: "Respuesta"}
+			{pregunta: "Pregunta", respuesta: "Respuesta", categoria: "Categoria"}
 		);
 	res.render('quizes/new', {quiz: quiz, errors: []});
 };
@@ -79,7 +79,7 @@ exports.create = function(req,res){
 			}
 			else{
 				quiz
-				.save({fields: ["pregunta", "respuesta"]})
+				.save({fields: ["pregunta", "respuesta", "categoria"]})
 				.then(function(){ res.redirect('/quizes'); })	//Redireccion http (URL relativo) lista de preguntas
 			}
 		}
@@ -96,6 +96,7 @@ exports.edit = function(req, res){
 exports.update = function(req, res){
 	req.quiz.pregunta = req.body.quiz.pregunta;
 	req.quiz.respuesta = req.body.quiz.respuesta;
+	req.quiz.categoria = req.body.quiz.categoria;
 
 	req.quiz
 	.validate()
@@ -106,7 +107,7 @@ exports.update = function(req, res){
 			}
 			else{
 				req.quiz
-				.save( {fields: ["pregunta", "respuesta"]} )
+				.save( {fields: ["pregunta", "respuesta", "categoria"]} )
 				.then( function() { res.redirect('/quizes'); });
 			}
 		}
