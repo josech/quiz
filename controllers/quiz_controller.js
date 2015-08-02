@@ -45,7 +45,7 @@ exports.author = function(req, res){
 // GET /quizes
 exports.index = function(req, res){
 	var search = req.query.search?req.query.search:"";	
-	search = search.replace(" ","%");
+	search = search.replace(/" "/g,"%");
 	search = "%"+search+"%";		
 	
 	models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes){
@@ -111,4 +111,10 @@ exports.update = function(req, res){
 			}
 		}
 	);
+};
+
+exports.destroy = function(req, res){
+	req.quiz.destroy().then( function(){
+		res.redirect('/quizes');
+	}).catch(function(error){next(error)});
 };
