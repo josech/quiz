@@ -2,7 +2,10 @@ var models = require('../models/models.js');
 
 // Autoload - factoriza el código si ruta incluye :quizId
 exports.load = function(req, res, next, quizId){
-	models.Quiz.find(quizId).then(
+	models.Quiz.find({
+		where: {id: Number(quizId)},
+		include: [{model: models.Comment}]
+	}).then(
 		function(quiz){
 			if(quiz){
 				req.quiz = quiz;
@@ -16,10 +19,10 @@ exports.load = function(req, res, next, quizId){
 
 //GET /quizes/:id
 exports.show = function(req, res){
-	models.Quiz.find(req.params.quizId).then(function(quiz){
+	res.render('quizes/show', { quiz: req.quiz, errors: []});
+	/*models.Quiz.find(req.params.quizId).then(function(quiz){
 		res.render('quizes/show', {quiz: quiz, errors: []})
-	})
-	//res.render('quizes/question', {pregunta: 'Capital de Italia'});
+	})*/
 };
 
 //GET /quizes/:id/answer
