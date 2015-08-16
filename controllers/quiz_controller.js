@@ -53,7 +53,7 @@ exports.index = function(req, res){
 	
 	models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes){
 			res.render('quizes/index.ejs', {quizes:quizes, errors: []});
-		}).catch(function(error){next(error);})
+		}).catch(function(error){next(error);});
 	/*
 	models.Quiz.findAll().then(function(quizes){		
 		res.render('quizes/index.ejs', {quizes: quizes});
@@ -83,7 +83,7 @@ exports.create = function(req,res){
 			else{
 				quiz
 				.save({fields: ["pregunta", "respuesta", "categoria"]})
-				.then(function(){ res.redirect('/quizes'); })	//Redireccion http (URL relativo) lista de preguntas
+				.then(function(){ res.redirect('/quizes'); });	//Redireccion http (URL relativo) lista de preguntas
 			}
 		}
 	);	

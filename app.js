@@ -27,7 +27,7 @@ app.use(cookieParser('Quiz 2015'));
 //app.use(session());
 app.use(session({
   secret: 'Quiz 2015',
-  resave: false,
+  resave: true,
   saveUninitialized: true
 }));
 app.use(methodOverride('_method'));
