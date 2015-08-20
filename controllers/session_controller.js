@@ -1,7 +1,12 @@
 // MW de autorización de accesos HTTP restringidos
 exports.loginRequired = function(req, res, next){
-	if(req.session.user){
-		next();
+	if(req.session.user){		
+		if(req.session.dt > 2*60*1000){
+			res.redirect('/logout');
+		}		
+		else{
+			next();
+		}		
 	}
 	else{
 		res.redirect('/login');
@@ -39,5 +44,7 @@ exports.create = function(req, res){
 // DELETE /logout -- Destruir sesión
 exports.destroy = function(req, res){
 	delete req.session.user;
+	delete req.session.tiempo;
+	delete req.session.dt;
 	res.redirect(req.session.redir.toString());
 }

@@ -38,11 +38,19 @@ app.use(partials());
 app.use(function(req, res, next) {
   //guardar path en session.redir para despues de login
   if(!req.path.match(/\/login|\/logout/)){
-    req.session.redir = req.path;
-  }
-
+    req.session.redir = req.path;    
+    var hora = new Date();    
+    if(req.session.tiempo){
+      req.session.dt = Number(hora) - Number(req.session.tiempo); 
+    }
+    else{
+      req.session.dt = 0;           
+    }
+    req.session.tiempo = Number(hora);   
+  }  
   //Hacer visible req.session en las vistas
   res.locals.session = req.session;
+
   next();
 });
 
